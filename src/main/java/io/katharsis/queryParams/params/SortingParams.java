@@ -5,14 +5,15 @@ import io.katharsis.queryParams.RestrictedSortingValues;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SortingParams {
+public class SortingParams implements TwoDimensionalQueryParamSingleValue<RestrictedSortingValues> {
     private Map<String, RestrictedSortingValues> params = new HashMap<>();
 
     public SortingParams(Map<String, RestrictedSortingValues> params) {
         this.params = params;
     }
 
-    public Map<String, RestrictedSortingValues> getParams() {
+    @Override
+	public Map<String, RestrictedSortingValues> getParams() {
         return params;
     }
 

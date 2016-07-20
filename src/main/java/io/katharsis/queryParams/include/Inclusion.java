@@ -46,10 +46,12 @@ public class Inclusion {
         return path != null ? path.hashCode() : 0;
     }
 
+    /**
+     * Returns the path of the resource to include, in fact returning the
+     * value of an include[...] parameter
+     */
     @Override
     public String toString() {
-        return "Inclusion{" +
-            "path='" + path + '\'' +
-            '}';
+        return path;
     }
 }

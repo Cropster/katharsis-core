@@ -2,7 +2,7 @@ package io.katharsis.queryParams.params;
 
 import java.util.Set;
 
-public class IncludedFieldsParams {
+public class IncludedFieldsParams implements OneDimensionalQueryParam<String> {
     private Set<String> params;
 
     public IncludedFieldsParams(Set<String> params) {

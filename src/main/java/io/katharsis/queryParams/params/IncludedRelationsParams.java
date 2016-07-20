@@ -4,7 +4,7 @@ import io.katharsis.queryParams.include.Inclusion;
 
 import java.util.Set;
 
-public class IncludedRelationsParams {
+public class IncludedRelationsParams implements OneDimensionalQueryParam<Inclusion> {
     private Set<Inclusion> params;
 
     public IncludedRelationsParams(Set<Inclusion> params) {

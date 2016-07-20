@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class FilterParams {
+public class FilterParams implements TwoDimensionalQueryParam<String> {
     private Map<String, Set<String>> params = new HashMap<>();
 
     public FilterParams(Map<String, Set<String>> params) {

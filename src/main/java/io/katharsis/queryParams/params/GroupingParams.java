@@ -3,7 +3,7 @@ package io.katharsis.queryParams.params;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GroupingParams {
+public class GroupingParams implements OneDimensionalQueryParam<String> {
     private Set<String> params = new HashSet<>();
 
     public GroupingParams(Set<String> params) {
