@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -59,6 +59,19 @@ public class QueryParamsHelperTest {
         assertNull(qpHelper.page().offset());
     }
     
+    @Test
+	public void testQueryParamsHelperFilterNullPointerSafeness() {
+        paramDataMap.put("filter[bogus][]", Collections.singleton("John"));
+
+        QueryParams params = new QueryParams();
+        QueryParamsHelper qpHelper = new QueryParamsHelper(params);
+        
+        params.setFilters(parser.parseFiltersParameters(paramDataMap));
+        
+        assertEquals(0, qpHelper.filters().get("users", "name").all().size());
+        assertNull(qpHelper.filters().get("users", "name").one());
+	}
+    
 	@Test
 	public void testQueryParamsHelperFilters() {
         paramDataMap.put("filter[users][name]", Collections.singleton("John"));
@@ -70,7 +83,7 @@ public class QueryParamsHelperTest {
         params.setFilters(parser.parseFiltersParameters(paramDataMap));
         assertEquals(1, qpHelper.filters().all().size());      
         
-        paramDataMap.put("filter[users][name]", new HashSet<String>(Arrays.asList(new String[]{"John", "John John"})));
+        paramDataMap.put("filter[users][name]", new LinkedHashSet<String>(Arrays.asList("John", "John John")));
         params.setFilters(parser.parseFiltersParameters(paramDataMap));
         Set<QueryParamNameValuePair> filters = qpHelper.filters().all();
         assertEquals(2, filters.size());
@@ -84,7 +97,7 @@ public class QueryParamsHelperTest {
         assertTrue(values.contains("John John"));
         
         String value = QueryParamsHelper.with(params).filters().get("users", "name").one();
-        assertEquals(value, "John");
+        assertEquals("John", value);
 	}
 	
 	@Test
@@ -98,7 +111,7 @@ public class QueryParamsHelperTest {
         params.setGrouping(parser.parseGroupingParameters(paramDataMap));
         assertEquals(1, qpHelper.groupings().all().size());      
         
-        paramDataMap.put("group[users]", new HashSet<String>(Arrays.asList(new String[]{"name", "age"})));
+        paramDataMap.put("group[users]", new LinkedHashSet<String>(Arrays.asList("name", "age")));
         params.setGrouping(parser.parseGroupingParameters(paramDataMap));
         Set<QueryParamNameValuePair> groupings = qpHelper.groupings().all();
         assertEquals(2, groupings.size());
@@ -112,7 +125,7 @@ public class QueryParamsHelperTest {
         assertTrue(values.contains("age"));
         
         String value = QueryParamsHelper.with(params).groupings().get("users").one();
-        assertEquals(value, "name");
+        assertEquals("name", value);
 	}
 	
 	@Test
@@ -126,7 +139,7 @@ public class QueryParamsHelperTest {
         params.setIncludedFields(parser.parseIncludedFieldsParameters(paramDataMap));
         assertEquals(1, qpHelper.fields().all().size());      
         
-        paramDataMap.put("fields[users]", new HashSet<String>(Arrays.asList(new String[]{"name", "age"})));
+        paramDataMap.put("fields[users]", new LinkedHashSet<String>(Arrays.asList("name", "age")));
         params.setIncludedFields(parser.parseIncludedFieldsParameters(paramDataMap));
         Set<QueryParamNameValuePair> fields = qpHelper.fields().all();
         assertEquals(2, fields.size());
@@ -140,7 +153,7 @@ public class QueryParamsHelperTest {
         assertTrue(values.contains("age"));
         
         String value = QueryParamsHelper.with(params).fields().get("users").one();
-        assertEquals(value, "name");
+        assertEquals("name", value);
 	}
 	
 	@Test
@@ -154,7 +167,7 @@ public class QueryParamsHelperTest {
         params.setIncludedRelations(parser.parseIncludedRelationsParameters(paramDataMap));
         assertEquals(1, qpHelper.inclusions().all().size());
         
-        paramDataMap.put("include[projects]", new HashSet<String>(Arrays.asList(new String[]{"tasks", "owner"})));
+        paramDataMap.put("include[projects]", new LinkedHashSet<String>(Arrays.asList("owner", "tasks")));
         params.setIncludedRelations(parser.parseIncludedRelationsParameters(paramDataMap));
         Set<QueryParamNameValuePair> fields = qpHelper.inclusions().all();
         assertEquals(2, fields.size());
@@ -171,7 +184,7 @@ public class QueryParamsHelperTest {
         
         // set gives no guarantee about order of elements, so in this case we end up
         // getting the owner, not the tasks value
-        assertEquals(value, new Inclusion("owner"));
+        assertEquals(new Inclusion("owner"), value);
 	}
 	
 	@Test
@@ -186,7 +199,7 @@ public class QueryParamsHelperTest {
         assertEquals(1, qpHelper.sortings().all().size());      
         
         // we may only get one value for sorting, even if we received two values
-        paramDataMap.put("sort[projects][name]", new HashSet<String>(Arrays.asList(new String[]{"asc", "desc"})));
+        paramDataMap.put("sort[projects][name]", new LinkedHashSet<String>(Arrays.asList("asc", "desc")));
         params.setSorting(parser.parseSortingParameters(paramDataMap));
         Set<QueryParamNameValuePair> sortings = qpHelper.sortings().all();
         assertEquals(1, sortings.size()); // note it says 1!
@@ -198,7 +211,7 @@ public class QueryParamsHelperTest {
         assertTrue(values.contains(RestrictedSortingValues.asc));
         
         RestrictedSortingValues value = QueryParamsHelper.with(params).sortings().get("projects", "name").one();
-        assertEquals(value, RestrictedSortingValues.asc);
+        assertEquals(RestrictedSortingValues.asc, value);
 	}
 	
 	@Test

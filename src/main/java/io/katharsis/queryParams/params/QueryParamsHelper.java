@@ -108,7 +108,7 @@ public class QueryParamsHelper {
     	}
     	
     	public Set<QueryParamNameValuePair> all() {
-    		HashSet<QueryParamNameValuePair> allParams = new HashSet<>();
+    		HashSet<QueryParamNameValuePair> allParams = new LinkedHashSet<>();
     		
     		for (RestrictedPaginationKeys key : RestrictedPaginationKeys.values()) {
     			Integer value = lookupValue(key);
@@ -321,7 +321,6 @@ public class QueryParamsHelper {
             }
             return allParams;
         }
-
     }
 
     public class SetWrapper<T>{
