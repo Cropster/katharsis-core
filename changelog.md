@@ -1,15 +1,19 @@
-# katharsis-core v2.4.2-SNAPSHOT git changelog
+# katharsis-core v2.4.3-SNAPSHOT git changelog
 
+2016-08-04    Fixes core [#50](https://github.com/katharsis-project/katharsis-core/issues/50):  PATCH fails for fields that where null before (Stefan Widerin)  
+2016-07-14    Fix the include parameter with a field path to populate the included attribute [#357](https://github.com/katharsis-project/katharsis-core/issues/357) (Nick Mitchell)  
+2016-07-13    Fix lazy single relationship field from being written to the relationships data attribute. [#356](https://github.com/katharsis-project/katharsis-core/issues/356) (Nick Mitchell)  
+2016-07-10    2.4.2-SNAPSHOT (Patryk Orwat)  
 2016-07-10    Setting a relationship causes a NullPointerException exception [#345](https://github.com/katharsis-project/katharsis-core/issues/345) ([#346](https://github.com/katharsis-project/katharsis-core/issues/346)) (Patryk Orwat)  
 2016-07-10    Preventing a NullPointerException from being thrown when an invalid relationship name is received. Instead, throwing a ResourceException with a helpful message about the invalid relationship name. (cherry picked from commit 35e73bf) (Patryk Orwat)  
+2016-06-19    v2.4.1 (Patryk Orwat)  
 
 **v2.4.1**  
-2016-06-19    v2.4.1 (Patryk Orwat)  
 2016-06-19    Fix problem with missing attributes in contained object on PATCH. ([#340](https://github.com/katharsis-project/katharsis-core/issues/340)) (Patryk Orwat)  
 2016-05-16    Version bump (Błażej Krysiak)  
+2016-05-12    v2.4.0 (Patryk Orwat)  
 
 **v2.4.0**  
-2016-05-12    v2.4.0 (Patryk Orwat)  
 2016-05-04    [#305](https://github.com/katharsis-project/katharsis-core/issues/305) checking for duplicate inclusion entries ([#306](https://github.com/katharsis-project/katharsis-core/issues/306)) (Patryk Orwat)  
 2016-04-21    [#297](https://github.com/katharsis-project/katharsis-core/issues/297) corrected relationship type returned with inheritance ([#302](https://github.com/katharsis-project/katharsis-core/issues/302)) (Patryk Orwat)  
 2016-04-21    [#294](https://github.com/katharsis-project/katharsis-core/issues/294) toString for QueryParams (Patryk Orwat)  
